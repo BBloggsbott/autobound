@@ -1,0 +1,28 @@
+plugins {
+  id 'java'
+  id 'org.openstreetmap.josm' version '0.6.1'
+}
+
+project.version '1.0.0'
+
+
+repositories {
+    jcenter()
+}
+
+archivesBaseName = 'AutoBound'
+josm {
+  josmCompileVersion = 15031
+  manifest {
+    description = 'The description of my awesome plugin'
+    mainClass = 'org.openstreetmap.josm.plugins.autobound.AutoBound'
+    minJosmVersion = 15031
+  }
+}
+
+
+dependencies{
+    // Use JUnit test framework
+    testImplementation 'junit:junit:4.12'
+}
+
