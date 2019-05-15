@@ -14,7 +14,7 @@ archivesBaseName = 'AutoBound'
 josm {
   josmCompileVersion = 15031
   manifest {
-    description = 'The description of my awesome plugin'
+    description = 'Automatically detect boundaries of buildings'
     mainClass = 'org.openstreetmap.josm.plugins.autobound.AutoBound'
     minJosmVersion = 15031
   }
