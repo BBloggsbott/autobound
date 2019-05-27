@@ -8,6 +8,7 @@ project.version '1.0.0'
 
 repositories {
     jcenter()
+    mavenCentral()
 }
 
 archivesBaseName = 'AutoBound'
@@ -22,6 +23,11 @@ josm {
 
 
 dependencies{
+
+    // https://mvnrepository.com/artifact/org.json/json
+    compile group: 'org.json', name: 'json', version: '20180813'
+
+
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
 }
