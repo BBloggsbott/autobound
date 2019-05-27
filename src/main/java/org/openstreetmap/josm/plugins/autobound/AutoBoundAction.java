@@ -35,9 +35,9 @@ public class AutoBoundAction extends MapMode implements SelectionEnded {
      */
     //TODO : Modify Icon names
     public AutoBoundAction(MapFrame mapFrame, String serverUrl){
-        super(tr("AutoBound Action"), "zoom",
+        super(tr("AutoBound Action"), "autobound",
                 tr("Generate nodes using AutoBound"), Shortcut.registerShortcut("mapmode:autobound", tr("Mode: {0}", tr("AutoBound mode")),KeyEvent.CHAR_UNDEFINED,Shortcut.NONE),
-                ImageProvider.getCursor("normal","zoom"));
+                ImageProvider.getCursor("normal","autobound"));
         this.selectionManager = new SelectionManager(this, true, mapFrame.mapView);
         this.serverUrl = serverUrl;
     }

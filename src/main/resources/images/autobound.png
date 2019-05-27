@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+  
+
+  
+
+
+  <head>
+    <title>
+      zoom.png in josm/trunk/images/mapmode
+     – JOSM
+    </title>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!--[if IE]><script type="text/javascript">
+      if (/^#__msie303:/.test(window.location.hash))
+        window.location.replace(window.location.hash.replace(/^#__msie303:/, '#'));
+    </script><![endif]-->
+          <link rel="search" href="/search" />
+          <link rel="help" href="/wiki/TracGuide" />
+          <link rel="alternate" href="/export/15119/josm/trunk/images/mapmode/zoom.png" type="image/png" title="Original Format" />
+          <link rel="start" href="/wiki" />
+          <link rel="stylesheet" href="/chrome/common/css/trac.css" type="text/css" />
+          <link rel="stylesheet" href="/chrome/common/css/code.css" type="text/css" />
+          <link rel="stylesheet" href="/chrome/common/css/browser.css" type="text/css" />
+          <link rel="prev" href="/browser/josm/trunk/images/mapmode/zoom.png?rev=7491" title="Revision 7491" />
+          <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <style id="trac-noscript" type="text/css">.trac-noscript { display: none !important }</style>
+      <link type="application/opensearchdescription+xml" rel="search" href="/search/opensearch" title="Search JOSM" />
+      <script type="text/javascript" charset="utf-8" src="/chrome/common/js/jquery.js"></script>
+      <script type="text/javascript" charset="utf-8" src="/chrome/common/js/babel.js"></script>
+      <script type="text/javascript" charset="utf-8" src="/chrome/common/js/trac.js"></script>
+      <script type="text/javascript" charset="utf-8" src="/chrome/common/js/search.js"></script>
+    <script type="text/javascript">
+      jQuery("#trac-noscript").remove();
+      jQuery(document).ready(function($) {
+        $(".trac-autofocus").focus();
+        $(".trac-target-new").attr("target", "_blank");
+        if ($.ui) { /* is jquery-ui added? */
+          $(".trac-datepicker:not([readonly])").prop("autocomplete", "off").datepicker();
+          $(".trac-datetimepicker:not([readonly])").prop("autocomplete", "off").datetimepicker();
+          $("#main").addClass("trac-nodatetimehint");
+        }
+        $(".trac-disable").disableSubmit(".trac-disable-determinant");
+        setTimeout(function() { $(".trac-scroll").scrollToTop() }, 1);
+        $(".trac-disable-on-submit").disableOnSubmit();
+      });
+    </script>
+    <script type="text/javascript" src="/chrome/common/js/folding.js"></script>
+    <script type="text/javascript">
+      jQuery(document).ready(function($) {
+        $(".trac-toggledeleted").show().click(function() {
+                  $(this).siblings().find(".trac-deleted").toggle();
+                  return false;
+        }).click();
+        $("#jumploc input").hide();
+        $("#jumploc select").change(function () {
+          this.parentNode.parentNode.submit();
+        });
+          $('#preview table.code').enableCollapsibleColumns($('#preview table.code thead th.content'));
+      });
+    </script>
+<!-- disable non standard HTML violating favicon entries.
+      <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png"/>
+      <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png"/>
+      <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png"/>
+      <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png"/>
+      <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png"/>
+      <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png"/>
+      <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png"/>
+      <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png"/>
+      <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png"/>
+      <link rel="icon" type="image/png" href="/favicon-192x192.png" sizes="192x192"/>
+      <link rel="icon" type="image/png" href="/favicon-160x160.png" sizes="160x160"/>
+      <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96"/>
+      <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16"/>
+      <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32"/>
+-->
+      <meta name="msapplication-TileColor" content="#2b5797" />
+      <meta name="msapplication-TileImage" content="/mstile-144x144.png" />
+      <!-- add special josm wiki changes -->
+      <link rel="stylesheet" href="/josm.css" type="text/css" />
+    </head>
+  <body>
+    <div id="banner">
+      <div id="header">
+        <a id="logo" href="https://josm.openstreetmap.de"><img src="/svn/trunk/images_nodist/logo/josm_logo_header.jpg" alt="JOSM" height="80" width="228" /></a>
+      </div>
+      <form id="search" action="/search" method="get">
+        <div>
+          <label for="proj-search">Search:</label>
+          <input type="text" id="proj-search" name="q" size="18" value="" />
+          <input type="submit" value="Search" />
+        </div>
+      </form>
+      <div id="metanav" class="nav">
+    <ul>
+      <li class="first"><a href="/login">Login</a></li><li><a href="/prefs">Preferences</a></li><li><a href="/wiki/TracGuide">Help/Guide</a></li><li><a href="/about">About Trac</a></li><li><a href="/register">Register</a></li><li class="last"><a href="/reset_password">Forgot your password?</a></li>
+    </ul>
+  </div>
+    </div>
+    <div id="mainnav" class="nav">
+    <ul>
+      <li class="first"><a href="/wiki">Wiki</a></li><li><a href="/timeline">Timeline</a></li><li><a href="/log/josm/?verbose=on">Changelog</a></li><li class="active"><a href="/browser">Browse Source</a></li><li><a href="/report">View Tickets</a></li><li><a href="/newticket">New Ticket</a></li><li><a href="/roadmap">Roadmap</a></li><li><a href="/jenkins/">Builds</a></li><li><a href="/sonar/">Sonar</a></li><li><a href="/search">Search</a></li><li class="last"><a href="/ticketstats">Ticket Stats</a></li>
+    </ul>
+  </div>
+    <div id="main">
+      <div id="ctxtnav" class="nav">
+        <h2>Context Navigation</h2>
+        <ul>
+          <li class="first"><span>&larr; <a class="prev" href="/browser/josm/trunk/images/mapmode/zoom.png?rev=7491" title="Revision 7491">Previous Revision</a></span></li><li><span class="missing">Next Revision &rarr;</span></li><li><a href="/browser/josm/trunk/images/mapmode/zoom.png?annotate=blame" title="Annotate each line with the last changed revision (this can be time consuming...)">Blame</a></li><li class="last"><a href="/log/josm/trunk/images/mapmode/zoom.png">Revision Log</a></li>
+        </ul>
+        <hr />
+      </div>
+    <div id="content" class="browser">
+        <h1>
+          
+<a class="pathentry first" href="/browser?order=name" title="Go to repository index">source:</a>
+<a class="pathentry" href="/browser/josm?order=name" title="View josm">josm</a><span class="pathentry sep">/</span><a class="pathentry" href="/browser/josm/trunk?order=name" title="View trunk">trunk</a><span class="pathentry sep">/</span><a class="pathentry" href="/browser/josm/trunk/images?order=name" title="View images">images</a><span class="pathentry sep">/</span><a class="pathentry" href="/browser/josm/trunk/images/mapmode?order=name" title="View mapmode">mapmode</a><span class="pathentry sep">/</span><a class="pathentry" href="/browser/josm/trunk/images/mapmode/zoom.png?order=name" title="View zoom.png">zoom.png</a>
+<br style="clear: both" />
+
+        </h1>
+        <div id="diffrev">
+          <form action="/changeset" method="get">
+            <div>
+              <label title="Show the diff against a specific revision">
+                View diff against: <input type="text" name="old" size="6" />
+                <input type="hidden" name="old_path" value="josm/trunk/images/mapmode/zoom.png" />
+                <input type="hidden" name="new" />
+                <input type="hidden" name="new_path" value="josm/trunk/images/mapmode/zoom.png" />
+              </label>
+            </div>
+          </form>
+        </div>
+        <div id="jumprev">
+          <form action="" method="get">
+            <div>
+              <label for="rev">
+                View revision:</label>
+              <input type="text" id="rev" name="rev" size="6" />
+            </div>
+          </form>
+        </div>
+        <div id="jumploc">
+          <form action="" method="get">
+            <div style="display:none;"><input type="text" name="sfp_email" value="" /><input type="hidden" name="sfph_mail" value="" /></div><div class="buttons">
+              <label for="preselected">Visit:</label>
+              <select id="preselected" name="preselected">
+                <option selected="selected"></option>
+                <optgroup label="branches">
+                  <option value="/browser/josm/trunk">trunk</option>
+                </optgroup>
+              </select>
+              <input type="submit" value="Go!" title="Jump to the chosen preselected path" />
+            </div>
+          </form>
+        </div>
+        <div class="trac-tags">
+        </div>
+      <table id="info" summary="Revision info">
+        <tr>
+          <th>
+                <a href="/changeset/7668/josm/trunk/images/mapmode/zoom.png" title="View differences">Last change</a>
+                  on this file was
+                  <a href="/changeset/7668/josm" title="View changeset 7668">7668</a>,
+                  checked in by <span class="trac-author">stoecker</span>, <a class="timeline" href="/timeline?from=2014-10-29T15%3A24%3A07%2B01%3A00&amp;precision=second" title="See timeline at 2014-10-29T15:24:07+01:00">5 years ago</a>
+          </th>
+        </tr>
+        <tr>
+          <td class="message searchable">
+              <p>
+cleanup icons, mark undetected icons, set proper mimetype, delete unused icons, update geticons script<br />
+</p>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <ul class="props">
+              <li>
+                  Property <strong>svn:mime-type</strong> set to
+                  <em><code>image/png</code></em>
+              </li>
+            </ul>
+          </td>
+        </tr>
+        <tr><td colspan="2">
+            <strong>File size:</strong>
+            <span title="1001 bytes">1001 bytes</span>
+          </td></tr>
+      </table>
+      <div id="preview" class="searchable">
+        
+  <div class="image-file"><img src="/export/15119/josm/trunk/images/mapmode/zoom.png" alt="trunk/images/mapmode/zoom.png" /></div>
+
+      </div>
+      <div id="anydiff">
+        <form action="/diff" method="get">
+          <div style="display:none;"><input type="text" name="sfp_email" value="" /><input type="hidden" name="sfph_mail" value="" /></div><div class="buttons">
+            <input type="hidden" name="new_path" value="/josm/trunk/images/mapmode/zoom.png" />
+            <input type="hidden" name="old_path" value="/josm/trunk/images/mapmode/zoom.png" />
+            <input type="hidden" name="new_rev" />
+            <input type="hidden" name="old_rev" />
+            <input type="submit" value="View changes..." title="Select paths and revs for Diff" />
+          </div>
+        </form>
+      </div>
+      <div id="help"><strong>Note:</strong> See <a href="/wiki/TracBrowser">TracBrowser</a>
+        for help on using the repository browser.</div>
+    </div>
+    <div id="altlinks">
+      <h3>Download in other formats:</h3>
+      <ul>
+        <li class="last first">
+          <a rel="nofollow" href="/export/15119/josm/trunk/images/mapmode/zoom.png">Original Format</a>
+        </li>
+      </ul>
+    </div>
+    </div>
+    <div id="footer" lang="en" xml:lang="en"><hr />
+      <a id="tracpowered" href="http://trac.edgewall.org/"><img src="/chrome/common/trac_logo_mini.png" height="30" width="107" alt="Trac Powered" /></a>
+      <p class="left">Powered by <a href="/about"><strong>Trac 1.2.2</strong></a><br />
+        By <a href="http://www.edgewall.org/">Edgewall Software</a>.</p>
+      <p class="right">Server sponsored by <a href="https://www.fossgis.de/">FOSSGIS</a>. Visit the OpenStreetMap project at <a href="https://www.openstreetmap.org/">https://www.openstreetmap.org/</a><br />Content is available under <a href="https://creativecommons.org/licenses/by-sa/3.0/">Creative Commons (CC-BY-SA)</a> and anything since April 2014 also under <a href="https://www.gnu.org/licenses/lgpl.html">LGPL</a> license.</p>
+    </div>
+  </body>
+</html>
