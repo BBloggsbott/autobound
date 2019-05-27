@@ -7,7 +7,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import org.openstreetmap.josm.actions.mapmode.MapMode;
-import org.openstreetmap.josm.data.preferences.StringProperty;
 import org.openstreetmap.josm.gui.MainApplication;
 import org.openstreetmap.josm.gui.MapFrame;
 import org.openstreetmap.josm.gui.MapView;
