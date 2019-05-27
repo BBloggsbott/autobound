@@ -51,7 +51,7 @@ public class NetworkUtils {
         out.write(data.toString());
         out.close();
         httpResult = connection.getResponseCode();
-        Logging.info("[INFO] Response Code from AutoBound server: "+httpResult);
+        Logging.info("Response Code from AutoBound server: "+httpResult);
         return readResponse(httpResult, connection);
     }
 
@@ -75,11 +75,11 @@ public class NetworkUtils {
                 response = sb.toString();
             }
             else {
-                Logging.error("[INFO] Error on posting "+connection.getResponseMessage());
+                Logging.error("Error on posting "+connection.getResponseMessage());
             }
         }
         catch(IOException ioe){
-            Logging.error("[INFO] Error in Response" + ioe.getMessage());
+            Logging.error("Error in Response" + ioe.getMessage());
         }
         return response;
     }
