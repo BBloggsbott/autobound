@@ -11,14 +11,32 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * Provide Networking utilities for the plugin.
+ * @author bbloggsbott
+ */
 public class NetworkUtils {
 
+    /**
+     * Object that holds the URL of the AutoBound Server.
+     */
     private final URL url;
 
+    /**
+     * Creates the new object for NetworkUtils.
+     * @param serverUrl The url to send and receive data for AutoBound.
+     * @throws MalformedURLException Thrown when the serverUrlis malformed.
+     */
     public NetworkUtils(String serverUrl) throws MalformedURLException {
         this.url = new URL(serverUrl);
     }
 
+    /**
+     * Generates the nodes by sending data to the server and returning the response from the server.
+     * @param data JSONObject containing the data to be sent to the server.
+     * @return The response form the server.
+     * @throws IOException Thrown when an IOException is encountered.
+     */
     public String generateNodes(JSONObject data) throws IOException {
         int httpResult;
         HttpURLConnection connection = (HttpURLConnection)url.openConnection();
@@ -37,6 +55,12 @@ public class NetworkUtils {
         return readResponse(httpResult, connection);
     }
 
+    /**
+     * Reads and returns the response from the server.
+     * @param httpResult The response code from the server.
+     * @param connection The HttpURLConnection object with the connection established to the server
+     * @return The response from the server.
+     */
     public String readResponse(int httpResult, HttpURLConnection connection){
         String response = null, line = null;
         StringBuilder sb;
