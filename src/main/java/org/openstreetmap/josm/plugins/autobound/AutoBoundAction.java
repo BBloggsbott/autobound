@@ -8,8 +8,10 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 
+import org.json.JSONObject;
 import org.openstreetmap.josm.actions.mapmode.MapMode;
 import org.openstreetmap.josm.data.Bounds;
 import org.openstreetmap.josm.gui.*;
@@ -57,15 +59,14 @@ public class AutoBoundAction extends MapMode implements SelectionEnded {
         BufferedImage image = new BufferedImage(mapView.getWidth(), mapView.getHeight(), BufferedImage.TYPE_INT_RGB);
         mapView.paintAll(image.getGraphics());
         try {
-            Dimension d = mapView.getSize();
-            Rectangle rect = new Rectangle(d);
-            Robot robot = new Robot();
-            BufferedImage image = robot.createScreenCapture(rect);     //Causes program to crash with exit code 134
-            //ImageIO.write(image, ".jpg", new File("temp_mapView.jpg"));
-        } catch (AWTException awe) {
-            Logging.error("AWTException when creating Robot object");
+            NetworkUtils networkUtils = new NetworkUtils(serverUrl);
+            JSONObject data = DataUtils.createJson(image, r.getX(), r.getY());
+            String response = networkUtils.generateNodes(data);
+        } catch (MalformedURLException mue) {
+            Logging.error("Malformed AutoBound server URL");
+        } catch (IOException ioe) {
+            Logging.error("Error while communicating with the server");
         }
-
     }
 
     @Override
