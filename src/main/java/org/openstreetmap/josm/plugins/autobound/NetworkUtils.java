@@ -1,5 +1,6 @@
 package org.openstreetmap.josm.plugins.autobound;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.openstreetmap.josm.tools.Logging;
 
@@ -47,6 +48,7 @@ public class NetworkUtils {
         connection.setRequestProperty("data", data.toString());
         connection.setRequestProperty("Content-Type", "application/json");
 
+        Logging.info("Sending data to AutoBound server at "+url);
         OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
         out.write(data.toString());
         out.close();
@@ -84,5 +86,14 @@ public class NetworkUtils {
         return response;
     }
 
-    //TODO : Add Method that converts the String (Response from the server) to JSON Object
+    /**
+     * Parses a JSON string to a JSON object
+     * @param responseString The string to be parsed as JSON object
+     * @return Parsed JSOn object
+     * @throws JSONException
+     */
+    public JSONObject responseToJSON(String responseString) throws JSONException {
+        JSONObject json = new JSONObject(responseString);
+        return json;
+    }
 }
