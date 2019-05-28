@@ -53,4 +53,6 @@ public class DataUtils {
         }
         return encodedImage;
     }
+
+    //TODO : Add method to convert JSON object (returned by NetworkUtils) to nodes on the map.
 }
