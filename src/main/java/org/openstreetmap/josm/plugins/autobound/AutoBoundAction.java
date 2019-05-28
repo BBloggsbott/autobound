@@ -54,20 +54,8 @@ public class AutoBoundAction extends MapMode implements SelectionEnded {
     @Override
     public void selectionEnded(Rectangle r, MouseEvent e) {
         MapView mapView = MainApplication.getMap().mapView;
-        /*MapViewState mapViewState = mapView.getState();
-        MapViewState.MapViewRectangle viewArea = mapViewState.getViewArea();
-        Bounds latLongBounds = viewArea.getLatLonBoundsBox();   //Use this to calculate offsets
-
-        //Get Satellite Image and encode it
-        List<Layer> layers = MainApplication.getLayerManager().getVisibleLayersInZOrder();
-        Layer lastBackgroundLayer = null;
-
-        for (Layer layer : layers) {       //Iterate over all layers to select the last background layer
-            if (layer.isBackgroundLayer()) {
-                lastBackgroundLayer = layer;
-            }
-        }*/
-
+        BufferedImage image = new BufferedImage(mapView.getWidth(), mapView.getHeight(), BufferedImage.TYPE_INT_RGB);
+        mapView.paintAll(image.getGraphics());
         try {
             Dimension d = mapView.getSize();
             Rectangle rect = new Rectangle(d);
