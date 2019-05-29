@@ -55,18 +55,18 @@ public class AutoBoundAction extends MapMode implements SelectionEnded {
     //TODO : Modify selectionEnded method by getting MapView inside selection, encoding it and passing it to the server
     @Override
     public void selectionEnded(Rectangle r, MouseEvent e) {
-        MapView mapView = MainApplication.getMap().mapView;
-        BufferedImage image = new BufferedImage(mapView.getWidth(), mapView.getHeight(), BufferedImage.TYPE_INT_RGB);
-        mapView.paintAll(image.getGraphics());
+        BufferedImage image = MapUtils.getSatelliteImage();
+        String response=null;
         try {
             NetworkUtils networkUtils = new NetworkUtils(serverUrl);
             JSONObject data = DataUtils.createJson(image, r.getX(), r.getY());
-            String response = networkUtils.generateNodes(data);
+            response = networkUtils.generateNodes(data);
         } catch (MalformedURLException mue) {
             Logging.error("Malformed AutoBound server URL");
         } catch (IOException ioe) {
             Logging.error("Error while communicating with the server");
         }
+        Logging.info(response);
     }
 
     @Override
