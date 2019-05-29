@@ -6,23 +6,18 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
 
 import org.json.JSONObject;
 import org.openstreetmap.josm.actions.mapmode.MapMode;
-import org.openstreetmap.josm.data.Bounds;
+import org.openstreetmap.josm.data.osm.Node;
 import org.openstreetmap.josm.gui.*;
 import org.openstreetmap.josm.gui.SelectionManager.SelectionEnded;
-import org.openstreetmap.josm.gui.layer.Layer;
-import org.openstreetmap.josm.gui.layer.MapViewPaintable;
 import org.openstreetmap.josm.tools.ImageProvider;
 import org.openstreetmap.josm.tools.Logging;
 import org.openstreetmap.josm.tools.Shortcut;
-
-import javax.imageio.ImageIO;
 
 /**
  * Enable AutoBound functionality within MapFrame.
@@ -57,16 +52,19 @@ public class AutoBoundAction extends MapMode implements SelectionEnded {
     public void selectionEnded(Rectangle r, MouseEvent e) {
         BufferedImage image = MapUtils.getSatelliteImage();
         String response=null;
+        NetworkUtils networkUtils=null;
         try {
-            NetworkUtils networkUtils = new NetworkUtils(serverUrl);
+            networkUtils = new NetworkUtils(serverUrl);
             JSONObject data = DataUtils.createJson(image, r.getX(), r.getY());
             response = networkUtils.generateNodes(data);
         } catch (MalformedURLException mue) {
             Logging.error("Malformed AutoBound server URL");
+            return;
         } catch (IOException ioe) {
             Logging.error("Error while communicating with the server");
+            return;
         }
-        Logging.info(response);
+        List<Node> nodes = DataUtils.josnToNodes(networkUtils.responseToJSON(response));
     }
 
     @Override

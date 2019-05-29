@@ -1,13 +1,18 @@
 package org.openstreetmap.josm.plugins.autobound;
 
 import org.json.JSONObject;
+import org.openstreetmap.josm.data.coor.LatLon;
+import org.openstreetmap.josm.data.osm.Node;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Class with methods that help process data.
@@ -54,5 +59,23 @@ public class DataUtils {
         return encodedImage;
     }
 
-    //TODO : Add method to convert JSON object (returned by NetworkUtils) to nodes on the map.
+    /**
+     * Converts a Json object with data about nodes to a list of Node objects
+     * @param json JSONObject to be converted into nodes
+     * @return Lost of nodes
+     */
+    public static List<Node> josnToNodes(JSONObject json){
+        ArrayList<Node> nodes = new ArrayList<>();
+        Node tempNode;
+        JSONObject point;
+        String curKey;
+        Iterator jsonKeys = json.keys();
+        while(jsonKeys.hasNext()){
+            curKey = (String)jsonKeys.next();
+            point = json.getJSONObject(curKey);
+            tempNode = new Node(new LatLon(point.getDouble("lat"), point.getDouble("lon")));
+            nodes.add(tempNode);
+        }
+        return nodes;
+    }
 }
