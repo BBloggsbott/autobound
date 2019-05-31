@@ -67,7 +67,9 @@ public class AutoBoundAction extends MapMode implements SelectionEnded {
             return;
         } catch (IllegalDataException ide){
             Logging.error("Error while parsing response from server");
+            ide.printStackTrace();
         }
+        MapUtils.addDataSetToDataLayer(dataset);
     }
 
     @Override
