@@ -28,7 +28,9 @@ dependencies{
     compile group: 'org.json', name: 'json', version: '20180813'
 
 
-    // Use JUnit test framework
-    testImplementation 'junit:junit:4.12'
+    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    testRuntimeOnly 'junit:junit:4.12'
 }
 
