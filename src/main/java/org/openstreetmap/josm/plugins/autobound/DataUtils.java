@@ -2,13 +2,15 @@ package org.openstreetmap.josm.plugins.autobound;
 
 import org.json.JSONObject;
 import org.openstreetmap.josm.data.coor.LatLon;
+import org.openstreetmap.josm.data.osm.DataSet;
 import org.openstreetmap.josm.data.osm.Node;
+import org.openstreetmap.josm.gui.progress.swing.PleaseWaitProgressMonitor;
+import org.openstreetmap.josm.io.IllegalDataException;
+import org.openstreetmap.josm.io.OsmReader;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.UncheckedIOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Iterator;
@@ -77,5 +79,25 @@ public class DataUtils {
             nodes.add(tempNode);
         }
         return nodes;
+    }
+
+    /**
+     * Convert xml from an input stream to a Dataset
+     * @param source InputStream to read data from
+     * @return DataSet parsed from the input stream
+     * @throws IllegalDataException
+     */
+    public static DataSet xmlToDataSet(InputStream source) throws IllegalDataException {
+        PleaseWaitProgressMonitor progressMonitor = new PleaseWaitProgressMonitor("Parsing dataset from XML");
+        return OsmReader.parseDataSet(source, progressMonitor);
+    }
+
+    /**
+     * Convert a String to InputStream
+     * @param response Response String to be converted
+     * @return InputStream
+     */
+    public static InputStream responseToInputStream(String response){
+        return new ByteArrayInputStream(response.getBytes());
     }
 }

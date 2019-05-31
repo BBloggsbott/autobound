@@ -1,13 +1,9 @@
 package org.openstreetmap.josm.plugins.autobound;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.openstreetmap.josm.tools.Logging;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -86,14 +82,4 @@ public class NetworkUtils {
         return response;
     }
 
-    /**
-     * Parses a JSON string to a JSON object
-     * @param responseString The string to be parsed as JSON object
-     * @return Parsed JSOn object
-     * @throws JSONException
-     */
-    public JSONObject responseToJSON(String responseString) throws JSONException {
-        JSONObject json = new JSONObject(responseString);
-        return json;
-    }
 }
