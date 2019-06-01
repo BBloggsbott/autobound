@@ -17,7 +17,7 @@ public class NetworkUtils {
     /**
      * Object that holds the URL of the AutoBound Server.
      */
-    private final URL url;
+    private final String serverUrl;
 
     /**
      * Creates the new object for NetworkUtils.
@@ -25,7 +25,15 @@ public class NetworkUtils {
      * @throws MalformedURLException Thrown when the serverUrlis malformed.
      */
     public NetworkUtils(String serverUrl) throws MalformedURLException {
-        this.url = new URL(serverUrl);
+        this.serverUrl = serverUrl;
+    }
+
+    public String addDataToUrl(JSONObject data, String serverUrl){
+        String newServerUrl = serverUrl;
+        if(!serverUrl.substring(serverUrl.length()-1).equalsIgnoreCase("/")){
+            newServerUrl = serverUrl + "?data=" + data.toString();
+        }
+        return newServerUrl;
     }
 
     /**
@@ -36,13 +44,12 @@ public class NetworkUtils {
      */
     public String generateNodes(JSONObject data) throws IOException {
         int httpResult;
+        URL url = new URL(addDataToUrl(data, serverUrl));
         HttpURLConnection connection = (HttpURLConnection)url.openConnection();
         connection.setDoInput(true);
         connection.setDoOutput(true);
-        connection.setRequestMethod("POST");
+        connection.setRequestMethod("GET");
         connection.setUseCaches(false);
-        connection.setRequestProperty("data", data.toString());
-        connection.setRequestProperty("Content-Type", "application/json");
 
         Logging.info("Sending data to AutoBound server at "+url);
         OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
