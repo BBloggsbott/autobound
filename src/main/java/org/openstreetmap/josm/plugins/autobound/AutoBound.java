@@ -10,6 +10,7 @@ import org.openstreetmap.josm.data.preferences.StringProperty;
 
 public class AutoBound extends Plugin {
     static StringProperty serverUrl = new StringProperty("autoboundServerUrl", "http://localhost:5000");
+    static StringProperty dataCollectionServerUrl = new StringProperty("dataCollectionServerUrl","http://localhost:5000/dataCollector");
     public AutoBound(PluginInformation info) {
         super(info);
     }

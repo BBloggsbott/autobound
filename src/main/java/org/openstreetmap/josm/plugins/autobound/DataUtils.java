@@ -2,6 +2,7 @@ package org.openstreetmap.josm.plugins.autobound;
 
 import org.json.JSONObject;
 import org.openstreetmap.josm.data.osm.DataSet;
+import org.openstreetmap.josm.data.osm.Way;
 import org.openstreetmap.josm.gui.progress.swing.PleaseWaitProgressMonitor;
 import org.openstreetmap.josm.io.IllegalDataException;
 import org.openstreetmap.josm.io.OsmReader;
@@ -9,7 +10,10 @@ import org.openstreetmap.josm.io.OsmReader;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Class with methods that help process data.
@@ -77,5 +81,22 @@ public class DataUtils {
      */
     public static InputStream responseToInputStream(String response){
         return new ByteArrayInputStream(response.getBytes());
+    }
+
+
+    /**
+     * Get all the Ways that have the tag building=* in them
+     * @param dataset The dataset to extract buildings from
+     * @return
+     */
+    public static ArrayList getBuildingsFromDataSet(DataSet dataset){
+        Collection<Way> ways = dataset.getWays();
+        ArrayList<Way> buildings = new ArrayList<>();
+        for(Way way : ways){
+            if(way.hasTag("building")){
+                buildings.add(way);
+            }
+        }
+        return buildings;
     }
 }
