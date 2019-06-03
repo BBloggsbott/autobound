@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
@@ -18,6 +19,7 @@ import org.openstreetmap.josm.io.IllegalDataException;
 import org.openstreetmap.josm.tools.ImageProvider;
 import org.openstreetmap.josm.tools.Logging;
 import org.openstreetmap.josm.tools.Shortcut;
+
 
 /**
  * Enable AutoBound functionality within MapFrame.
@@ -50,7 +52,7 @@ public class AutoBoundAction extends MapMode implements SelectionEnded {
     //TODO : Modify selectionEnded method by getting MapView inside selection, encoding it and passing it to the server
     @Override
     public void selectionEnded(Rectangle r, MouseEvent e) {
-        BufferedImage image = MapUtils.getSatelliteImage();
+        BufferedImage image = MapUtils.getSatelliteImage(r);
         String response=null;
         NetworkUtils networkUtils=null;
         DataSet dataset = null;
