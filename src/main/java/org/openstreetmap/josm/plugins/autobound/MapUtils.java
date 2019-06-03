@@ -18,6 +18,12 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Utilities for Map related operations
+ *
+ * @author bbloggsbott
+ * @author michaelzangl
+ */
 import static org.openstreetmap.josm.tools.I18n.tr;
 
 public class MapUtils {

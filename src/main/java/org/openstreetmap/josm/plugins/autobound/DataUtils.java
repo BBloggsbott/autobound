@@ -13,7 +13,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Class with methods that help process data.

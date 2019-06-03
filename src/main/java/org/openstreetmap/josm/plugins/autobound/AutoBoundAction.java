@@ -6,7 +6,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
@@ -49,7 +48,6 @@ public class AutoBoundAction extends MapMode implements SelectionEnded {
         this.serverUrl = serverUrl;
     }
 
-    //TODO : Modify selectionEnded method by getting MapView inside selection, encoding it and passing it to the server
     @Override
     public void selectionEnded(Rectangle r, MouseEvent e) {
         BufferedImage image = MapUtils.getSatelliteImage(r);
