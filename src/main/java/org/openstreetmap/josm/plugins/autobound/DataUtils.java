@@ -13,6 +13,7 @@ import org.openstreetmap.josm.io.OsmReader;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collection;
@@ -50,16 +51,22 @@ public class DataUtils {
         JSONObject data = new JSONObject();
         JSONObject wayJson = new JSONObject();
         JSONObject nodeJson;
+        List<JSONObject> nodeList = new ArrayList<>();
         List<Node> nodes = way.getNodes();
         int nodeCount = 0;
         EastNorth en;
+        Timestamp timestamp =new Timestamp(System.currentTimeMillis());
+
+
         for (Node node : nodes){
             en = node.getEastNorth();
             nodeJson = new JSONObject();
             nodeJson.put("east",en.east());
             nodeJson.put("north", en.north());
-            wayJson.put("node"+nodeCount,nodeJson);
+            nodeList.add(nodeJson);
         }
+
+        data.put("timestamp", timestamp);
 
         data.put("image", DataUtils.encodeImage(image));
 
@@ -71,7 +78,8 @@ public class DataUtils {
         data.put("maxEast", en.east());
         data.put("maxNorth", en.north());
 
-        data.put("wayid", way.getId());
+        wayJson.put("id", way.getId());
+        wayJson.put("nodes", nodeList.toArray());
         data.put("way", wayJson);
 
         data.put("dist100pixel", dist100pixel);
