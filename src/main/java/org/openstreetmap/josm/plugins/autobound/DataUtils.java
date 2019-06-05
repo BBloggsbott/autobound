@@ -13,6 +13,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 /**
  * Class with methods that help process data.
@@ -90,12 +91,7 @@ public class DataUtils {
      */
     public static ArrayList getBuildingsFromDataSet(DataSet dataset){
         Collection<Way> ways = dataset.getWays();
-        ArrayList<Way> buildings = new ArrayList<>();
-        for(Way way : ways){
-            if(way.hasTag("building")){
-                buildings.add(way);
-            }
-        }
+        ArrayList<Way> buildings = new ArrayList<>(ways.stream().filter(way -> way.hasTag("building")).collect(Collectors.toList()));
         return buildings;
     }
 }

@@ -2,7 +2,10 @@ package org.openstreetmap.josm.plugins.autobound;
 
 import org.openstreetmap.gui.jmapviewer.interfaces.TileSource;
 import org.openstreetmap.josm.data.ProjectionBounds;
+import org.openstreetmap.josm.data.coor.EastNorth;
 import org.openstreetmap.josm.data.osm.DataSet;
+import org.openstreetmap.josm.data.osm.Way;
+import org.openstreetmap.josm.data.osm.visitor.BoundingXYVisitor;
 import org.openstreetmap.josm.gui.MainApplication;
 import org.openstreetmap.josm.gui.MapView;
 import org.openstreetmap.josm.gui.MapViewState;
@@ -148,5 +151,34 @@ public class MapUtils {
         }
         OsmDataLayer newLayer = new OsmDataLayer(from,"AutoBoundData", null);
         mainLayerManager.addLayer(newLayer);
+    }
+
+    /**
+     * Get the bounds in east north form for a way
+     * @param way Way to calculate bounds for
+     * @return ProjectionBounds
+     */
+    public static ProjectionBounds getBoundsForWay(Way way){
+        BoundingXYVisitor visitor = new BoundingXYVisitor();
+        visitor.visit(way);
+        return visitor.getBounds();
+    }
+
+    public static ProjectionBounds getProjectionBoundsForImage(ProjectionBounds bounds){
+        EastNorth min = bounds.getMin();
+        EastNorth max = bounds.getMax();
+        EastNorth center = bounds.getCenter();
+
+        // padding min east by half the size of the building
+        double newMinEast = min.east() - (center.east() - min.east());
+        // padding min north by half the size of the building
+        double newMinNorth = min.north() - (center.north() - min.north());
+        // padding max east by half the size of the building
+        double newMaxEast = max.east() + (max.east() - center.east());
+        // padding max north by half the size of the building
+        double newMaxNorth = max.north() + (max.north() - center.north());
+
+        ProjectionBounds newBounds = new ProjectionBounds(newMinEast, newMinNorth, newMaxEast, newMaxNorth);
+        return newBounds;
     }
 }
