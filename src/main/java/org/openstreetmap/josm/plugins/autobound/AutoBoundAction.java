@@ -39,7 +39,6 @@ public class AutoBoundAction extends MapMode implements SelectionEnded {
      *
      * @param mapFrame The MapFrame, whose autobound mode should be enabled.
      */
-    //TODO : Reduce icon size for cursor
     public AutoBoundAction(MapFrame mapFrame, String serverUrl) {
         super(tr("AutoBound Action"), "autobound",
                 tr("Generate nodes using AutoBound"), Shortcut.registerShortcut("mapmode:autobound", tr("Mode: {0}", tr("AutoBound mode")), KeyEvent.CHAR_UNDEFINED, Shortcut.NONE),
@@ -57,7 +56,7 @@ public class AutoBoundAction extends MapMode implements SelectionEnded {
         try {
             networkUtils = new NetworkUtils(serverUrl);
             JSONObject data = DataUtils.createJson(image, r.getX(), r.getY());
-            response = networkUtils.generateNodes(data);
+            response = networkUtils.sendToServer(data);
             dataset = DataUtils.xmlToDataSet(DataUtils.responseToInputStream(response));
         } catch (MalformedURLException mue) {
             Logging.error("Malformed AutoBound server URL");

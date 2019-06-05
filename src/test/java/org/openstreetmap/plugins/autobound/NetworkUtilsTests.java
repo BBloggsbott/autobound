@@ -24,12 +24,12 @@ public class NetworkUtilsTests {
         try{
             jsonObject.put("verification","generateNodesTest");
             networkUtils = new NetworkUtils("http://localhost:5000/generateNodesTest");
-            String response = networkUtils.generateNodes(jsonObject);
+            String response = networkUtils.sendToServer(jsonObject);
             System.out.println(response);
             assertEquals("message exchange works", response);
             jsonObject = new JSONObject();
             jsonObject.put("verification","invalid");
-            response = networkUtils.generateNodes(jsonObject);
+            response = networkUtils.sendToServer(jsonObject);
             assertNotEquals("message exchange error", response);
         } catch(MalformedURLException mue){
             mue.printStackTrace();

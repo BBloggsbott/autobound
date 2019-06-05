@@ -1,7 +1,10 @@
 package org.openstreetmap.josm.plugins.autobound;
 
 import org.json.JSONObject;
+import org.openstreetmap.josm.data.ProjectionBounds;
+import org.openstreetmap.josm.data.coor.EastNorth;
 import org.openstreetmap.josm.data.osm.DataSet;
+import org.openstreetmap.josm.data.osm.Node;
 import org.openstreetmap.josm.data.osm.Way;
 import org.openstreetmap.josm.gui.progress.swing.PleaseWaitProgressMonitor;
 import org.openstreetmap.josm.io.IllegalDataException;
@@ -13,6 +16,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -31,7 +35,7 @@ public class DataUtils {
      * Create JSON object that is to be passed to the server
      * @param image The buffered image of the satellite image in the area selected by the user.
      * @param offset_x longitude of the top left corner of the selection area.
-     * @param offset_y lattitude of the top left corner of the selection area.
+     * @param offset_y latitude of the top left corner of the selection area.
      * @return JSONObject with the Base64 encoded image and the two offset values
      */
     public static JSONObject createJson(BufferedImage image, double offset_x, double offset_y){
@@ -39,6 +43,39 @@ public class DataUtils {
         data.put("image",encodeImage(image));
         data.put("offset_x",offset_x);
         data.put("offset_y",offset_y);
+        return data;
+    }
+
+    public static JSONObject createJSON(BufferedImage image, ProjectionBounds imageBounds, Way way, double dist100pixel){
+        JSONObject data = new JSONObject();
+        JSONObject wayJson = new JSONObject();
+        JSONObject nodeJson;
+        List<Node> nodes = way.getNodes();
+        int nodeCount = 0;
+        EastNorth en;
+        for (Node node : nodes){
+            en = node.getEastNorth();
+            nodeJson = new JSONObject();
+            nodeJson.put("east",en.east());
+            nodeJson.put("north", en.north());
+            wayJson.put("node"+nodeCount,nodeJson);
+        }
+
+        data.put("image", DataUtils.encodeImage(image));
+
+        en = imageBounds.getMin();
+        data.put("minEast", en.east());
+        data.put("minNorth", en.north());
+
+        en = imageBounds.getMax();
+        data.put("maxEast", en.east());
+        data.put("maxNorth", en.north());
+
+        data.put("wayid", way.getId());
+        data.put("way", wayJson);
+
+        data.put("dist100pixel", dist100pixel);
+
         return data;
     }
 
@@ -89,7 +126,7 @@ public class DataUtils {
      * @param dataset The dataset to extract buildings from
      * @return
      */
-    public static ArrayList getBuildingsFromDataSet(DataSet dataset){
+    public static ArrayList<Way> getBuildingsFromDataSet(DataSet dataset){
         Collection<Way> ways = dataset.getWays();
         ArrayList<Way> buildings = new ArrayList<>(ways.stream().filter(way -> way.hasTag("building")).collect(Collectors.toList()));
         return buildings;

@@ -42,7 +42,7 @@ public class NetworkUtils {
      * @return The response form the server.
      * @throws IOException Thrown when an IOException is encountered.
      */
-    public String generateNodes(JSONObject data) throws IOException {
+    public String sendToServer(JSONObject data) throws IOException {
         int httpResult;
         URL url = new URL(addDataToUrl(data, serverUrl));
         HttpURLConnection connection = (HttpURLConnection)url.openConnection();
