@@ -116,7 +116,6 @@ public class MapUtils {
 
             reset.run();
 
-            dist100Pixel = fakeMapView.getDist100Pixel();
             return image;
         } else {
             JOptionPane.showMessageDialog(
@@ -129,6 +128,94 @@ public class MapUtils {
         return null;
     }
 
+    /**
+     * Return the imagery inside a given ProjectionBounds
+     * @param bounds ProjectionBounds to get imagery or
+     * @return Imagery inside the ProjectionBounds
+     */
+    public static BufferedImage getSatelliteImage(ProjectionBounds bounds){
+        Optional<Layer> layerOpt = MainApplication.getLayerManager().getLayers().stream()
+                .filter(l -> l.isBackgroundLayer() && l.isVisible())
+                .findFirst();
+        if(layerOpt.isPresent()) {
+            Layer layer = layerOpt.get();
+
+            MainLayerManager layersToRender = new MainLayerManager();
+            layersToRender.addLayer(layer);
+            MapView fakeMapView = new MapView(layersToRender, null) {
+                {
+                    setBounds(0, 0, 1024, 1024);   // < max rendering size
+                    updateLocationState();
+                }
+
+                @Override
+                protected boolean isVisibleOnScreen() {
+                    return true;
+                }
+
+                @Override
+                public Point getLocationOnScreen() {
+                    return new Point(0, 0);
+                }
+            };
+            Runnable reset = () -> {
+            };
+            if (layer instanceof AbstractTileSourceLayer) {
+                try {
+                    Field coordinateConverterField = AbstractTileSourceLayer.class.getDeclaredField("coordinateConverter");
+                    coordinateConverterField.setAccessible(true);
+                    Field tileSourceField = TileCoordinateConverter.class.getDeclaredField("tileSource");
+                    Field settingsField = TileCoordinateConverter.class.getDeclaredField("settings");
+                    TileCoordinateConverter oldConverter = (TileCoordinateConverter) coordinateConverterField.get(layer);
+                    tileSourceField.setAccessible(true);
+                    settingsField.setAccessible(true);
+                    TileCoordinateConverter newConverter = new TileCoordinateConverter(fakeMapView,
+                            (TileSource) tileSourceField.get(oldConverter),
+                            (TileSourceDisplaySettings) settingsField.get(oldConverter));
+                    coordinateConverterField.set(layer, newConverter);
+                    reset = () -> {
+                        try {
+                            coordinateConverterField.set(layer, oldConverter);
+                        } catch (IllegalAccessException iae) {
+                            Logging.warn(iae);
+                        }
+                    };
+                } catch (NoSuchFieldException | IllegalAccessException ex) {
+                    Logging.error("ex");
+                }
+            }
+            MapViewPaintable.LayerPainter painter = layer.attachToMapView(new MapViewPaintable.MapViewEvent(fakeMapView, false));
+            //This will not exactly zoom to that area, but instead to an area close to it depending on the native scale of the background layer.
+            fakeMapView.zoomTo(bounds);
+            //Find selected area in fakes map view space
+            MapViewState.MapViewRectangle toPaint = fakeMapView.getState().getPointFor(bounds.getMin())
+                    .rectTo(fakeMapView.getState().getPointFor(bounds.getMax()));
+
+            // Actual Drawing
+            BufferedImage image = new BufferedImage((int) toPaint.getInView().getWidth(), (int) toPaint.getInView().getHeight(), BufferedImage.TYPE_BYTE_INDEXED);
+
+            Graphics2D graphics = image.createGraphics();
+            // Move so that the image matches the region we are painting
+            graphics.translate(-toPaint.getInView().getMinX(), -toPaint.getInView().getMinY());
+            painter.paint(new MapViewGraphics(fakeMapView, graphics, toPaint));
+
+            graphics.dispose();
+            painter.detachFromMapView(new MapViewPaintable.MapViewEvent(fakeMapView, false));
+
+            reset.run();
+
+            dist100Pixel = fakeMapView.getDist100Pixel();
+            return image;
+        } else {
+            JOptionPane.showMessageDialog(
+                    MainApplication.getMainFrame(),
+                    tr("No imagery layer found"),
+                    tr("Warning"),
+                    JOptionPane.WARNING_MESSAGE
+            );
+        }
+        return null;
+    }
 
     public static double getDist100Pixel(){
         return dist100Pixel;
