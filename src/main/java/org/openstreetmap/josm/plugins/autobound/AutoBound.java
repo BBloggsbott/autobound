@@ -16,15 +16,15 @@ public class AutoBound extends Plugin {
     static StringProperty dataCollectionServerUrl = new StringProperty("dataCollectionServerUrl","http://localhost:5000/dataCollector");
     public AutoBound(PluginInformation info) {
         super(info);
+        MainMenu menu = MainApplication.getMenu();
+        menu.add(menu.toolsMenu, new DataCollectionAction(dataCollectionServerUrl.get()));
     }
 
     @Override
     public void mapFrameInitialized(MapFrame oldFrame, MapFrame newFrame) {
         super.mapFrameInitialized(oldFrame, newFrame);
-        MainMenu mainMenu = MainApplication.getMenu();
         if(newFrame != null) {
             newFrame.addMapMode(new IconToggleButton(new AutoBoundAction(newFrame, serverUrl.get())));
-            newFrame.addMapMode(new IconToggleButton(new DataCollectionAction(dataCollectionServerUrl.get())));
         }
     }
 }

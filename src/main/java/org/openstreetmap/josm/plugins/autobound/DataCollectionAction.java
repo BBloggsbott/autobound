@@ -1,6 +1,7 @@
 package org.openstreetmap.josm.plugins.autobound;
 
 import org.json.JSONObject;
+import org.openstreetmap.josm.actions.JosmAction;
 import org.openstreetmap.josm.actions.mapmode.MapMode;
 import org.openstreetmap.josm.data.ProjectionBounds;
 import org.openstreetmap.josm.data.osm.DataSet;
@@ -25,7 +26,7 @@ import static org.openstreetmap.josm.tools.I18n.tr;
 /**
  * Action class to collect imagery data
  */
-public class DataCollectionAction extends MapMode implements ActionListener {
+public class DataCollectionAction extends JosmAction {
 
     private NetworkUtils networkUtils = null;
 
@@ -34,9 +35,10 @@ public class DataCollectionAction extends MapMode implements ActionListener {
      * @param dataCollectionServerUrl URL to the server that saves data
      */
     public DataCollectionAction(String dataCollectionServerUrl){
-        super(tr("Data Collect Action"), "autobound",
-                tr("Collect and save data for AutoBound"), Shortcut.registerShortcut("mapmode:autobounddatacollect", tr("Mode: {0}", tr("AutoBoundDataCollect mode")), KeyEvent.CHAR_UNDEFINED, Shortcut.NONE),
-                ImageProvider.getCursor("normal", "autobound"));
+        super(tr("Collect Data - AutoBound"), "autobound",
+                tr("Collect the data of every building in the Data Layer and send them to the Data Collection server for processing and saving"),
+                Shortcut.registerShortcut("autobound:collectdata", tr("Tools: {0}", tr("Collect Data - AutoBound")),
+                KeyEvent.CHAR_UNDEFINED, Shortcut.NONE), true);
         try{
             networkUtils = new NetworkUtils(dataCollectionServerUrl);
         } catch (MalformedURLException mue){
