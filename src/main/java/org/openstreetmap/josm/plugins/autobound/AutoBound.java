@@ -22,7 +22,9 @@ public class AutoBound extends Plugin {
     public void mapFrameInitialized(MapFrame oldFrame, MapFrame newFrame) {
         super.mapFrameInitialized(oldFrame, newFrame);
         MainMenu mainMenu = MainApplication.getMenu();
-        if(newFrame != null)
+        if(newFrame != null) {
             newFrame.addMapMode(new IconToggleButton(new AutoBoundAction(newFrame, serverUrl.get())));
+            newFrame.addMapMode(new IconToggleButton(new DataCollectionAction(dataCollectionServerUrl.get())));
+        }
     }
 }
