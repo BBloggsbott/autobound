@@ -31,6 +31,9 @@ dependencies{
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
+    // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.8'
+
     testRuntimeOnly 'junit:junit:4.12'
 
     testImplementation "org.openstreetmap.josm:josm-unittest:SNAPSHOT"
