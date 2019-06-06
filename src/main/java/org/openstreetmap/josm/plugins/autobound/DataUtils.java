@@ -55,7 +55,7 @@ public class DataUtils {
         List<Node> nodes = way.getNodes();
         int nodeCount = 0;
         EastNorth en;
-        Timestamp timestamp =new Timestamp(System.currentTimeMillis());
+        long timestamp = System.currentTimeMillis() / 1000L;
 
 
         for (Node node : nodes){

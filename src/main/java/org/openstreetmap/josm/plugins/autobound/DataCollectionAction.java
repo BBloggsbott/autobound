@@ -57,18 +57,19 @@ public class DataCollectionAction extends JosmAction {
             ProjectionBounds bounds;
             JSONObject data;
             String response;
-            int successfulSaves = 0, failedSaves = 0;
+            int successfulSaves = 0;
 
             try{
                 for (Way building : buildings){
                     bounds = MapUtils.getProjectionBoundsForImage(MapUtils.getBoundsForWay(building));
                     image = MapUtils.getSatelliteImage(bounds);
+                    if(image == null){
+                        break;
+                    }
                     data = DataUtils.createJSON(image, bounds, building, MapUtils.getDist100Pixel());
                     response = networkUtils.sendToServer(data);
                     if(response.equalsIgnoreCase("success")){
                         successfulSaves +=1;
-                    } else {
-                        failedSaves += 1;
                     }
                 }
             } catch (IOException ioe){
@@ -76,7 +77,7 @@ public class DataCollectionAction extends JosmAction {
             }
             JOptionPane.showMessageDialog(
                     MainApplication.getMainFrame(),
-                    tr("Successfully saved "+successfulSaves+" images out of "+(successfulSaves+failedSaves)+" images."),
+                    tr("Successfully saved "+successfulSaves+" images out of "+buildings.size()+" images."),
                     tr("Save Complete"),
                     JOptionPane.INFORMATION_MESSAGE
             );
