@@ -3,4 +3,4 @@ Repository for GSoC 2019 [project](https://summerofcode.withgoogle.com/projects/
 
 Currently Implemented Features:
 * `Collect Data - AutoBound` - This can be found under the Tools Menu. This is used to download and save data to train the AutoBound's Image Segmentation Model.
-* `AutoBound` MapMode - The plugin side of the tools is almost completed but the server side is still under development.
+* `AutoBound` MapMode - The plugin side of the tool is almost completed but the server side is still under development.
