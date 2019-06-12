@@ -6,11 +6,15 @@ import org.openstreetmap.josm.data.coor.EastNorth;
 import org.openstreetmap.josm.data.osm.DataSet;
 import org.openstreetmap.josm.data.osm.Node;
 import org.openstreetmap.josm.data.osm.Way;
+import org.openstreetmap.josm.gui.MainApplication;
+import org.openstreetmap.josm.gui.layer.OsmDataLayer;
 import org.openstreetmap.josm.gui.progress.swing.PleaseWaitProgressMonitor;
 import org.openstreetmap.josm.io.IllegalDataException;
 import org.openstreetmap.josm.io.OsmReader;
+import org.openstreetmap.josm.tools.Logging;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.sql.Timestamp;
@@ -19,6 +23,8 @@ import java.util.Base64;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.openstreetmap.josm.tools.I18n.tr;
 
 /**
  * Class with methods that help process data.
@@ -139,4 +145,5 @@ public class DataUtils {
         ArrayList<Way> buildings = new ArrayList<>(ways.stream().filter(way -> way.hasTag("building")).collect(Collectors.toList()));
         return buildings;
     }
+
 }
