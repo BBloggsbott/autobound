@@ -6,6 +6,7 @@ import org.openstreetmap.josm.data.osm.DataSet;
 import org.openstreetmap.josm.data.osm.Way;
 import org.openstreetmap.josm.gui.MainApplication;
 import org.openstreetmap.josm.gui.layer.OsmDataLayer;
+import org.openstreetmap.josm.gui.progress.swing.PleaseWaitProgressMonitor;
 import org.openstreetmap.josm.tools.Logging;
 
 import javax.swing.JOptionPane;
@@ -20,9 +21,11 @@ public class DataCollectionRunnable implements Runnable {
     private Thread downloadThread;
     private final NetworkUtils networkUtils;
     private static int threadNo = 0;
+    private PleaseWaitProgressMonitor progressMonitor;
 
     public DataCollectionRunnable(NetworkUtils networkUtils){
         this.networkUtils = networkUtils;
+        this.progressMonitor = new PleaseWaitProgressMonitor("Downloading Data");
     }
 
     @Override
@@ -32,25 +35,36 @@ public class DataCollectionRunnable implements Runnable {
         ArrayList<Way> buildings = DataUtils.getBuildingsFromDataSet(dataset);
         int successfulSaves = 0;
         int totalBuildings = buildings.size();
+        progressMonitor.beginTask("Downloading Data", totalBuildings);
+        progressMonitor.appendLogMessage("Found "+totalBuildings+" buildings.");
         ProjectionBounds bounds;
         BufferedImage image;
         JSONObject data;
         String response;
         try{
             for (Way building : buildings){
+                progressMonitor.setCustomText("Saving Image "+(successfulSaves+1));
                 bounds = MapUtils.getProjectionBoundsForImage(MapUtils.getBoundsForWay(building));
                 image = MapUtils.getSatelliteImage(bounds);
                 if(image == null){
+                    progressMonitor.appendLogMessage("Could not get satellite Image");
+                    progressMonitor.finishTask();
+                    progressMonitor.close();
                     break;
                 }
                 data = DataUtils.createJSON(image, bounds, building, MapUtils.getDist100Pixel());
                 response = networkUtils.sendToServer(data);
                 if(response.equalsIgnoreCase("success")){
+                    progressMonitor.appendLogMessage("Saved building "+(successfulSaves+1));
                     successfulSaves +=1;
+                    progressMonitor.worked(1);
                 }
             }
         } catch (IOException ioe){
             Logging.error("Error While communicating with server");
+        } finally {
+            progressMonitor.finishTask();
+            progressMonitor.close();
         }
         JOptionPane.showMessageDialog(
                 MainApplication.getMainFrame(),
