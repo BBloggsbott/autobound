@@ -32,7 +32,6 @@ public class DataCollectionAction extends JosmAction {
         }
     }
 
-    //TODO : Add ProgressMonitor
     @Override
     public void actionPerformed(ActionEvent e) {
         if(networkUtils != null){
