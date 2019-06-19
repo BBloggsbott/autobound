@@ -6,6 +6,7 @@ import org.openstreetmap.josm.data.osm.DataSet;
 import org.openstreetmap.josm.data.osm.Way;
 import org.openstreetmap.josm.gui.MainApplication;
 import org.openstreetmap.josm.gui.layer.OsmDataLayer;
+import org.openstreetmap.josm.gui.progress.ProgressMonitor;
 import org.openstreetmap.josm.gui.progress.swing.PleaseWaitProgressMonitor;
 import org.openstreetmap.josm.tools.Logging;
 
@@ -23,7 +24,7 @@ public class DataCollectionRunnable implements Runnable {
     private static int threadNo = 0;
     private PleaseWaitProgressMonitor progressMonitor;
 
-    public DataCollectionRunnable(NetworkUtils networkUtils){
+    DataCollectionRunnable(NetworkUtils networkUtils){
         this.networkUtils = networkUtils;
         this.progressMonitor = new PleaseWaitProgressMonitor("Downloading Data");
     }
@@ -48,8 +49,6 @@ public class DataCollectionRunnable implements Runnable {
                 image = MapUtils.getSatelliteImage(bounds);
                 if(image == null){
                     progressMonitor.appendLogMessage("Could not get satellite Image");
-                    progressMonitor.finishTask();
-                    progressMonitor.close();
                     break;
                 }
                 data = DataUtils.createJSON(image, bounds, building, MapUtils.getDist100Pixel());
@@ -57,7 +56,11 @@ public class DataCollectionRunnable implements Runnable {
                 if(response.equalsIgnoreCase("success")){
                     progressMonitor.appendLogMessage("Saved building "+(successfulSaves+1));
                     successfulSaves +=1;
-                    progressMonitor.worked(1);
+                    if(!progressMonitor.isCanceled()){
+                        progressMonitor.worked(1);
+                    } else {
+                        break;
+                    }
                 }
             }
         } catch (IOException ioe){
