@@ -20,6 +20,7 @@ import java.awt.image.BufferedImage;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Utilities for Map related operations
@@ -187,6 +188,13 @@ public class MapUtils {
             MapViewPaintable.LayerPainter painter = layer.attachToMapView(new MapViewPaintable.MapViewEvent(fakeMapView, false));
             //This will not exactly zoom to that area, but instead to an area close to it depending on the native scale of the background layer.
             fakeMapView.zoomTo(bounds);
+            try{
+                TimeUnit.SECONDS.sleep(2);
+            } catch (InterruptedException e) {
+                Logging.error("Interrupted Exception while waiting for image to render");
+                e.printStackTrace();
+            }
+
             //Find selected area in fakes map view space
             MapViewState.MapViewRectangle toPaint = fakeMapView.getState().getPointFor(bounds.getMin())
                     .rectTo(fakeMapView.getState().getPointFor(bounds.getMax()));
