@@ -104,6 +104,11 @@ public class MapUtils {
             MapViewState.MapViewRectangle toPaint = fakeMapView.getState().getPointFor(selectedInEastNorth.getMin())
                     .rectTo(fakeMapView.getState().getPointFor(selectedInEastNorth.getMax()));
 
+            try{
+                TimeUnit.SECONDS.sleep(5);
+            } catch (InterruptedException ie) {
+                Logging.error(ie);
+            }
             // Actual Drawing
             BufferedImage image = new BufferedImage((int) toPaint.getInView().getWidth(), (int) toPaint.getInView().getHeight(), BufferedImage.TYPE_BYTE_INDEXED);
 
@@ -111,6 +116,7 @@ public class MapUtils {
             // Move so that the image matches the region we are painting
             graphics.translate(-toPaint.getInView().getMinX(), -toPaint.getInView().getMinY());
             painter.paint(new MapViewGraphics(fakeMapView, graphics, toPaint));
+
 
             graphics.dispose();
             painter.detachFromMapView(new MapViewPaintable.MapViewEvent(fakeMapView, false));
@@ -189,7 +195,7 @@ public class MapUtils {
             //This will not exactly zoom to that area, but instead to an area close to it depending on the native scale of the background layer.
             fakeMapView.zoomTo(bounds);
             try{
-                TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(5);
             } catch (InterruptedException e) {
                 Logging.error("Interrupted Exception while waiting for image to render");
                 e.printStackTrace();
