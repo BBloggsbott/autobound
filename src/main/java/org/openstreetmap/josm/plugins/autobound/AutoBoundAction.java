@@ -11,6 +11,7 @@ import java.net.MalformedURLException;
 
 import org.json.JSONObject;
 import org.openstreetmap.josm.actions.mapmode.MapMode;
+import org.openstreetmap.josm.data.ProjectionBounds;
 import org.openstreetmap.josm.data.osm.DataSet;
 import org.openstreetmap.josm.gui.*;
 import org.openstreetmap.josm.gui.SelectionManager.SelectionEnded;
@@ -49,13 +50,16 @@ public class AutoBoundAction extends MapMode implements SelectionEnded {
 
     @Override
     public void selectionEnded(Rectangle r, MouseEvent e) {
-        BufferedImage image = MapUtils.getSatelliteImage(r);
+        MapView mv = MainApplication.getMap().mapView;
+        MapViewState.MapViewRectangle selectedArea = mv.getState().getViewArea(r);
+        ProjectionBounds selectedInEastNorth = selectedArea.getProjectionBounds();
+        BufferedImage image = MapUtils.getSatelliteImage(selectedInEastNorth);
         String response=null;
         NetworkUtils networkUtils=null;
         DataSet dataset = null;
         try {
             networkUtils = new NetworkUtils(serverUrl);
-            JSONObject data = DataUtils.createJson(image, r.getX(), r.getY());
+            JSONObject data = DataUtils.createJson(image, selectedInEastNorth.minEast, selectedInEastNorth.minNorth);
             response = networkUtils.sendToServer(data);
             dataset = DataUtils.xmlToDataSet(DataUtils.responseToInputStream(response));
         } catch (MalformedURLException mue) {

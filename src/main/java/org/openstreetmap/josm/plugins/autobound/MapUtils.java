@@ -6,6 +6,7 @@ import org.openstreetmap.josm.data.coor.EastNorth;
 import org.openstreetmap.josm.data.osm.DataSet;
 import org.openstreetmap.josm.data.osm.Way;
 import org.openstreetmap.josm.data.osm.visitor.BoundingXYVisitor;
+import org.openstreetmap.josm.data.preferences.IntegerProperty;
 import org.openstreetmap.josm.gui.MainApplication;
 import org.openstreetmap.josm.gui.MapView;
 import org.openstreetmap.josm.gui.MapViewState;
@@ -36,6 +37,11 @@ public class MapUtils {
      * Stores the number of meters in 100 pixel for the image generated when getSatelliteImage is called
      */
     private static double dist100Pixel = -1.0;
+    private static int delay;
+
+    static void setDelay(int delaySecs){
+        delay = delaySecs;
+    }
 
     /**
      * Extract and return the imagery of the selected area in the map view
@@ -105,7 +111,7 @@ public class MapUtils {
                     .rectTo(fakeMapView.getState().getPointFor(selectedInEastNorth.getMax()));
 
             try{
-                TimeUnit.SECONDS.sleep(5);
+                TimeUnit.SECONDS.sleep(delay);
             } catch (InterruptedException ie) {
                 Logging.error(ie);
             }
@@ -195,7 +201,7 @@ public class MapUtils {
             //This will not exactly zoom to that area, but instead to an area close to it depending on the native scale of the background layer.
             fakeMapView.zoomTo(bounds);
             try{
-                TimeUnit.SECONDS.sleep(5);
+                TimeUnit.SECONDS.sleep(delay);
             } catch (InterruptedException e) {
                 Logging.error("Interrupted Exception while waiting for image to render");
                 e.printStackTrace();

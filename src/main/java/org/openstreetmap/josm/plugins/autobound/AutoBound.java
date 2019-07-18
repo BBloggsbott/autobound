@@ -1,5 +1,6 @@
 package org.openstreetmap.josm.plugins.autobound;
 
+import org.openstreetmap.josm.data.preferences.IntegerProperty;
 import org.openstreetmap.josm.gui.IconToggleButton;
 import org.openstreetmap.josm.gui.MainApplication;
 import org.openstreetmap.josm.gui.MainMenu;
@@ -14,6 +15,7 @@ import org.openstreetmap.josm.data.preferences.StringProperty;
 public class AutoBound extends Plugin {
     static StringProperty serverUrl = new StringProperty("autoboundServerUrl", "http://localhost:5000");
     static StringProperty dataCollectionServerUrl = new StringProperty("dataCollectionServerUrl","http://localhost:5000/dataCollector");
+    static IntegerProperty delayProperty = new IntegerProperty("AutoBound imagery load delay", 5);
     public AutoBound(PluginInformation info) {
         super(info);
         MainMenu menu = MainApplication.getMenu();
@@ -25,6 +27,7 @@ public class AutoBound extends Plugin {
         super.mapFrameInitialized(oldFrame, newFrame);
         if(newFrame != null) {
             newFrame.addMapMode(new IconToggleButton(new AutoBoundAction(newFrame, serverUrl.get())));
+            MapUtils.setDelay(delayProperty.get());
         }
     }
 }
