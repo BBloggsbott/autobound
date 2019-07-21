@@ -8,6 +8,7 @@ project.version '1.0.0'
 
 repositories {
     jcenter()
+    mavenCentral()
 }
 
 archivesBaseName = 'AutoBound'
@@ -22,7 +23,23 @@ josm {
 
 
 dependencies{
-    // Use JUnit test framework
-    testImplementation 'junit:junit:4.12'
+
+    // https://mvnrepository.com/artifact/org.json/json
+    compile group: 'org.json', name: 'json', version: '20180813'
+
+
+    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.8'
+
+    testRuntimeOnly 'junit:junit:4.12'
+
+    testImplementation "org.openstreetmap.josm:josm-unittest:SNAPSHOT"
+
+    testImplementation "com.github.tomakehurst:wiremock:2.23.2"
+
+    testImplementation "org.awaitility:awaitility:3.1.6"
 }
 
