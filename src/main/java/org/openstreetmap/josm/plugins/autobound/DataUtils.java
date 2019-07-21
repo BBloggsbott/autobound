@@ -41,15 +41,19 @@ public class DataUtils {
     /**
      * Create JSON object that is to be passed to the server
      * @param image The buffered image of the satellite image in the area selected by the user.
-     * @param min_east east coordinate of the top left corner of the selection area.
-     * @param min_north north coordinate of the top left corner of the selection area.
+     * @param min_lat Minimum latitude of the selected are
+     * @param min_lon Minimum longitude of the selected area
+     * @param max_lat Maximum latitude of the selected are
+     * @param max_lon Maximum longitude of the selected area
      * @return JSONObject with the Base64 encoded image and the two offset values
      */
-    public static JSONObject createJson(BufferedImage image, double min_east, double min_north){
+    public static JSONObject createJson(BufferedImage image, double min_lat, double min_lon, double max_lat, double max_lon){
         JSONObject data = new JSONObject();
         data.put("image",encodeImage(image));
-        data.put("min_east",min_east);
-        data.put("min_north",min_north);
+        data.put("min_lat",min_lat);
+        data.put("min_lon",min_lon);
+        data.put("max_lat",max_lat);
+        data.put("max_lon",max_lon);
         return data;
     }
 
