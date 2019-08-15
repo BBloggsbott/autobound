@@ -7,3 +7,20 @@ Currently Implemented Features:
 
 The above functionalities require the [AutoBound Server](https://github.com/BBloggsbott/autoboundserver/) to be running.<br>
 Check the [wiki](https://github.com/BBloggsbott/autobound/wiki) for more info.
+
+## Using the plugin
+To launch JOSM with AutoBound, clone this repository and run the following command:<br>
+If you have gradle installed, run<br>
+```bash
+$ gradle runJosm
+```
+
+If you don't have gradle installed, run either of the following commands<br>
+If you are using Windows,
+```bash
+$ gradlew.bat runJosm
+```
+If you are using Linux/Mac
+```bash
+./gradlew runJosm
+```
